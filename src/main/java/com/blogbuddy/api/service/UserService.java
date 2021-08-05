@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.UUID;
 
 @Service
 public class UserService {
@@ -26,6 +27,19 @@ public class UserService {
         Date currentDateTime = new Date();
         userEntity.setCreatedOn(currentDateTime);
         userEntity.setUpdatedOn(currentDateTime);
+
+        return UserObjectMapper
+                .mapToUserDto(userRepository.save(userEntity));
+
+    }
+
+    public UserDto updateUserTheme(UUID userId, UserRequest userRequest) {
+
+        UserEntity userEntity = userRepository.findById(userId).orElse(null);
+        // User not found
+        if(userEntity == null) return null;
+
+        userEntity.setSelectedTheme(userRequest.getSelectedTheme());
 
         return UserObjectMapper
                 .mapToUserDto(userRepository.save(userEntity));

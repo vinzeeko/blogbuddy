@@ -53,6 +53,4 @@ public class BlogController {
         return BlogObjectMapper.mapToBlogResponse(blogService.createBlog(blogRequest));
     }
 
-
-
 }
