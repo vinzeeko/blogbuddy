@@ -1,0 +1,14 @@
+version: '2'
+
+services:
+  cassandra1:
+    image: bitnami/cassandra:latest
+    ports:
+      - "9042:9042"
+    dns:
+      - 8.8.8.8
+    volumes:
+      - cassandra1:/var/lib/cassandra:rw
+
+volumes:
+  cassandra1:

@@ -1,0 +1,161 @@
+buildscript {
+
+    ext {
+
+        junitVersion = '5.5.1'
+        log4jVersion = '2.11.1'
+        lombokVersion = '1.18.8'
+        springVersion = '5.1.8.RELEASE'
+        logunitVersion = '1.1.0'
+        jacksonVersion = '2.9.9'
+        mockitoVersion = '2.23.4'
+        caffeineVersion = '2.7.0'
+        cucumberVersion = '4.3.1'
+        logstashVersion = '4.9'
+        wiremockVersion = '2.1.2.RELEASE'
+        springBootVersion = '2.0.5.RELEASE'
+        springCloudVersion = 'Finchley.RELEASE'
+        cucumberReportingVersion = '3.20.0'
+        springManagementPluginVersion = '1.0.7.RELEASE'
+        springFoxSwaggerVersion = '2.9.2';
+        modelMapperVersion = '2.3.0';
+
+        projectName = 'blogbuddy-api'
+    }
+    repositories {
+
+        mavenCentral()
+        maven {
+
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+
+        classpath("io.spring.gradle:dependency-management-plugin:${springManagementPluginVersion}")
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+plugins {
+
+    id "com.gorylenko.gradle-git-properties" version "1.4.17"
+}
+
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'jacoco'
+apply plugin: 'io.spring.dependency-management'
+
+version = "${project.ext.properties.appVersion ?: '0.0.0'}"
+description = "${projectName}"
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+bootJar {
+
+    baseName = "${project.ext.properties.projectName}"
+    version = version
+}
+
+repositories {
+
+    mavenLocal()
+    mavenCentral()
+
+    maven {
+
+        url("https://repo.spring.io/libs-milestone")
+    }
+    maven {
+
+        url("https://repo.spring.io/libs-snapshot")
+    }
+}
+
+dependencies {
+
+    compileOnly("org.projectlombok:lombok:${lombokVersion}")
+    annotationProcessor("org.projectlombok:lombok:${lombokVersion}")
+
+    // Revisit
+    implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:${jacksonVersion}")
+
+    implementation("org.apache.logging.log4j:log4j-1.2-api:${log4jVersion}")
+
+    implementation("org.springframework:spring-context-support:${springVersion}")
+    implementation('org.springframework.boot:spring-boot-starter-web')
+    implementation('org.springframework.boot:spring-boot-starter-actuator')
+
+    implementation('org.springframework.cloud:spring-cloud-starter-netflix-hystrix')
+    implementation("io.springfox:springfox-swagger2:${springFoxSwaggerVersion}");
+    implementation("io.springfox:springfox-swagger-ui:${springFoxSwaggerVersion}");
+    implementation("org.springframework.boot:spring-boot-starter-data-cassandra")
+    implementation("org.modelmapper:modelmapper:${modelMapperVersion}")
+
+
+    // unit tests
+    testRuntimeOnly("io.github.netmikey.logunit:logunit-logback:${logunitVersion}")
+    testImplementation("io.github.netmikey.logunit:logunit-core:${logunitVersion}")
+
+    testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
+    testImplementation("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
+    testImplementation("org.junit.jupiter:junit-jupiter-params:${junitVersion}")
+    testImplementation("org.mockito:mockito-core:${mockitoVersion}")
+    testImplementation("org.mockito:mockito-junit-jupiter:${mockitoVersion}")
+    testImplementation('org.springframework.boot:spring-boot-starter-test')
+    testImplementation("org.springframework.cloud:spring-cloud-contract-wiremock:${wiremockVersion}")
+    testImplementation("org.cassandraunit:cassandra-unit:3.3.0.2")
+
+    // component tests
+    testCompileOnly("org.projectlombok:lombok:${lombokVersion}")
+    testAnnotationProcessor("org.projectlombok:lombok:${lombokVersion}")
+
+    testImplementation("io.cucumber:cucumber-java:${cucumberVersion}")
+    testImplementation("io.cucumber:cucumber-junit:${cucumberVersion}")
+    testImplementation("io.cucumber:cucumber-spring:${cucumberVersion}")
+    testImplementation("net.masterthought:cucumber-reporting:${cucumberReportingVersion}")
+}
+
+configurations {
+
+    compile.exclude group: 'org.springframework.cloud', module: 'spring-cloud-starter-netflix-eureka-client'
+}
+
+dependencyManagement {
+
+    imports {
+
+        mavenBom("org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}")
+    }
+}
+
+tasks.withType(JavaCompile) {
+
+    options.compilerArgs << "-Xlint:unchecked" << "-Xlint:rawtypes" << "-Werror"
+}
+
+springBoot {
+
+    buildInfo {
+
+        properties {
+
+            version = version
+        }
+    }
+}
+
+test {
+
+    useJUnitPlatform()
+
+    testLogging {
+
+        events "passed", "skipped", "failed"
+    }
+    exclude '**/cucumber/**'
+}
+

@@ -1,0 +1,69 @@
+server:
+   port: 8082
+
+spring:
+  profiles: cucumber
+  application:
+    name: ihm-template-api
+  cloud:
+    discovery: 
+      enabled: false
+    consul:
+      enabled: false
+      config:
+        enabled: false
+      discovery:
+        enabled: false
+    vault:
+      enabled: false
+      discovery:
+        enabled: false
+
+eureka:
+  client:
+    enabled: false
+
+hystrix:
+  metrics.enabled: false
+  threadpool:
+    default:
+      coreSize: 10
+      maxQueueSize: 100
+      queueSizeRejectionThreshold: 100
+  command:
+    default.execution.isolation.thread.timeoutInMilliseconds: 10000
+
+ribbon:
+  ConnectTimeout: 3000
+  ReadTimeout: 10000
+  MaxAutoRetries: 2
+  MaxAutoRetriesNextServer: 0
+  OkToRetryOnAllOperations: false
+  NIWSServerListClassName: com.netflix.loadbalancer.ConfigurationBasedServerList
+
+wiremock:
+  port: 9999
+  ribbon:
+    listOfServers: "http://localhost:9999"
+
+rest:
+  client:
+    order-api.url: 'http://wiremock/order'
+
+ihm:
+  toggle:
+    enabled: true
+    remote: false
+    isSomeFeature: true
+  security.oauth2.token:
+    username: 'xxx'
+    password: '***'
+  cache:
+    # it must be zero always to work with wiremock scenarios
+    templateTimeoutInMinutes: 0
+
+logging:
+  level:
+    root: ERROR
+    cucumber: DEBUG
+    com.iheartmedia: INFO

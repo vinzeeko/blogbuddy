@@ -1,0 +1,25 @@
+spring:
+  profiles: test
+  application.name: ihm-template-api
+  cloud:
+    consul:
+      enabled: false
+      discovery:
+        enabled: false
+      config:
+        enabled: false
+    vault:
+        enabled: false
+
+logging.level:
+  org: INFO
+  com.iheartmedia: DEBUG
+
+test:
+  message: 'OK Test!'
+
+ihm:
+  toggle:
+    enabled: true
+    remote: false
+    isSomeFeature: true
