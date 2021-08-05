@@ -32,11 +32,12 @@ CREATE TABLE user (
 );
 
 
-CREATE TABLE comments (
+CREATE TABLE comment (
 
     // key
     comment_id uuid,
     user_id uuid,
+    username text,
     blog_id uuid,
     comment text,
 
@@ -46,7 +47,7 @@ CREATE TABLE comments (
     primary key (comment_id)
 );
 
-CREATE INDEX ON comments (blog_id);
+CREATE INDEX ON comment (blog_id);
 
 -- Creating sample data
 -- To be removed
@@ -61,5 +62,5 @@ INSERT INTO blog (blog_id, user_id, title, content)
   VALUES (6ab09bec-e68e-48d9-a5f8-97e6fb4c9b57, 6ab09bec-e68e-48d9-a5f8-97e6fb4c9b47, 'My First Blog','Oh there is lot to share here');
 
 
-INSERT INTO comments (comment_id, user_id, blog_id, comment)
+INSERT INTO comment (comment_id, user_id, blog_id, comment)
   VALUES (6ab09bec-e68e-48d9-a5f8-97e6fb4c9b37, 6ab09bec-e68e-48d9-a5f8-97e6fb4c9b47, 6ab09bec-e68e-48d9-a5f8-97e6fb4c9b57, 'here goes my first comment');
