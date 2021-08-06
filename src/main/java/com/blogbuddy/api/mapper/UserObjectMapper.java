@@ -5,8 +5,6 @@ import com.blogbuddy.api.model.UserRequest;
 import com.blogbuddy.api.model.UserResponse;
 import com.blogbuddy.api.repository.entity.UserEntity;
 
-import java.util.UUID;
-
 public class UserObjectMapper {
 
     // To disable instantiation
@@ -17,8 +15,7 @@ public class UserObjectMapper {
 
         UserDto userDto = new UserDto();
 
-        userDto.setUserId(userEntity.getUserId());
-        userDto.setUserName(userEntity.getUsername());
+        userDto.setUserName(userEntity.getUserName());
         userDto.setSelectedTheme(userEntity.getSelectedTheme());
         userDto.setCreateOn(userEntity.getCreatedOn());
         userDto.setUpdateOn(userEntity.getUpdatedOn());
@@ -28,9 +25,8 @@ public class UserObjectMapper {
     public static UserEntity mapToUserEntity(UserRequest userRequest) {
 
         UserEntity userEntity = new UserEntity();
-        userEntity.setUserId(UUID.randomUUID());
         userEntity.setPassword(userRequest.getPassword());
-        userEntity.setUsername(userRequest.getUsername());
+        userEntity.setUserName(userRequest.getUserName());
         userEntity.setSelectedTheme(userRequest.getSelectedTheme());
 
 
@@ -41,7 +37,6 @@ public class UserObjectMapper {
 
         UserResponse userResponse = new UserResponse();
 
-        userResponse.setUserId(userDto.getUserId());
         userResponse.setUserName(userDto.getUserName());
         userResponse.setSelectedTheme(userDto.getSelectedTheme());
         userResponse.setCreatedOn(userDto.getCreateOn());

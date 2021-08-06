@@ -17,7 +17,6 @@ public class CommentObjectMapper {
 
         CommentDto commentDto = new CommentDto();
         commentDto.setBlogId(commentEntity.getBlogId());
-        commentDto.setUserId(commentEntity.getUserId());
         commentDto.setUserName(commentEntity.getUserName());
         commentDto.setCommentId(commentEntity.getCommentId());
         commentDto.setComment(commentEntity.getComment());
@@ -30,7 +29,6 @@ public class CommentObjectMapper {
         CommentEntity commentEntity = new CommentEntity();
         commentEntity.setCommentId(UUID.randomUUID());
         commentEntity.setBlogId(commentRequest.getBlogId());
-        commentEntity.setUserId(commentRequest.getUserId());
         commentEntity.setUserName(commentRequest.getUserName());
         commentEntity.setComment(commentRequest.getComment());
         return commentEntity;
@@ -40,7 +38,6 @@ public class CommentObjectMapper {
 
         CommentResponse commentResponse = new CommentResponse();
         commentResponse.setBlogId(commentDto.getBlogId());
-        commentResponse.setUserId(commentDto.getUserId());
         commentResponse.setUserName(commentDto.getUserName());
         commentResponse.setCommentId(commentDto.getCommentId());
         commentResponse.setComment(commentDto.getComment());

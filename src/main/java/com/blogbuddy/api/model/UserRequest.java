@@ -11,7 +11,7 @@ import java.util.Date;
 @NoArgsConstructor()
 public class UserRequest {
 
-    String username;
+    String userName;
     // Encrypted at the front-end
     // it is one way hashing and we wouldnt be able to decrypt back to clear text
     String password;

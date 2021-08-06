@@ -5,14 +5,13 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import java.util.Date;
-import java.util.UUID;
 
 @Data
 @ToString
 @NoArgsConstructor()
 public class BlogRequest {
 
-    UUID userId;
+    String userName;
     String title;
     String content;
     Date createdOn;

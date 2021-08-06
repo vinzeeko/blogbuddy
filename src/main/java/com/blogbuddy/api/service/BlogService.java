@@ -8,6 +8,7 @@ import com.blogbuddy.api.repository.entity.BlogEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -26,18 +27,24 @@ public class BlogService {
 
     public List<BlogDto> listBlogs() {
 
-        return StreamSupport.stream(blogRepository.findAll().spliterator(), false)
+        List<BlogDto> blogDtos = StreamSupport.stream(blogRepository.findAll().spliterator(), false)
                 .map(BlogObjectMapper::mapToBlogDto)
                 .collect(Collectors.toList());
+
+        blogDtos.sort(Comparator.comparing(BlogDto::getCreateOn).reversed());
+        return blogDtos;
     }
 
 
     public List<BlogDto> listBlogsByUser(UUID userId) {
 
-        return blogRepository.listBlogsByUser(userId)
+        List<BlogDto> blogDtos = blogRepository.listBlogsByUser(userId)
                 .stream()
                 .map(BlogObjectMapper::mapToBlogDto)
                 .collect(Collectors.toList());
+
+        blogDtos.sort(Comparator.comparing(BlogDto::getCreateOn).reversed());
+        return blogDtos;
     }
 
     public BlogDto createBlog(BlogRequest blogRequest) {
@@ -49,6 +56,17 @@ public class BlogService {
 
         return BlogObjectMapper
                 .mapToBlogDto(blogRepository.save(blogEntity));
+
+    }
+
+    public BlogDto viewBlog(UUID blogId) {
+
+        BlogEntity blogEntity = blogRepository.findById(blogId).orElse(null);
+
+        if(blogEntity == null) return null;
+
+        return BlogObjectMapper
+                .mapToBlogDto(blogEntity);
 
     }
 

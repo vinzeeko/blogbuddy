@@ -17,7 +17,7 @@ public class BlogObjectMapper {
 
         BlogDto blogDto = new BlogDto();
         blogDto.setBlogId(blogEntity.getBlogId());
-        blogDto.setUserId(blogEntity.getUserId());
+        blogDto.setUserName(blogEntity.getUserName());
         blogDto.setTitle(blogEntity.getTitle());
         blogDto.setContent(blogEntity.getContent());
         blogDto.setCreateOn(blogEntity.getCreatedOn());
@@ -29,7 +29,7 @@ public class BlogObjectMapper {
 
         BlogEntity blogEntity = new BlogEntity();
         blogEntity.setBlogId(UUID.randomUUID());
-        blogEntity.setUserId(blogRequest.getUserId());
+        blogEntity.setUserName(blogRequest.getUserName());
         blogEntity.setTitle(blogRequest.getTitle());
         blogEntity.setContent(blogRequest.getContent());
         return blogEntity;
@@ -39,7 +39,7 @@ public class BlogObjectMapper {
 
         BlogResponse blogResponse = new BlogResponse();
         blogResponse.setBlogId(blogDto.getBlogId());
-        blogResponse.setUserId(blogDto.getUserId());
+        blogResponse.setUserName(blogDto.getUserName());
         blogResponse.setTitle(blogDto.getTitle());
         blogResponse.setContent(blogDto.getContent());
         blogResponse.setCreatedOn(blogDto.getCreateOn());

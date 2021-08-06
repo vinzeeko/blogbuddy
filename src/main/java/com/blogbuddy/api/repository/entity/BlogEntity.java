@@ -15,8 +15,8 @@ public class BlogEntity {
     @PrimaryKey("blog_id")
     private UUID blogId;
 
-    @Column("user_id")
-    private UUID userId;
+    @Column("username")
+    private String userName;
 
     @Column("content")
     private String content;

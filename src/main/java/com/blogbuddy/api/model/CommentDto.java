@@ -13,7 +13,6 @@ import java.util.UUID;
 public class CommentDto {
     UUID commentId;
     UUID blogId;
-    UUID userId;
     String userName;
     String comment;
     Date createOn;

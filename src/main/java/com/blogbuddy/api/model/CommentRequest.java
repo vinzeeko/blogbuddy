@@ -12,7 +12,6 @@ import java.util.UUID;
 public class CommentRequest {
 
     UUID blogId;
-    UUID userId;
     String userName;
     String comment;
 

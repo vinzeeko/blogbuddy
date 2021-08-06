@@ -6,17 +6,13 @@ import org.springframework.data.cassandra.core.mapping.PrimaryKey;
 import org.springframework.data.cassandra.core.mapping.Table;
 
 import java.util.Date;
-import java.util.UUID;
 
 @Data
 @Table("user")
 public class UserEntity {
 
-    @PrimaryKey("user_id")
-    private UUID userId;
-
-    @Column("username")
-    private String username;
+    @PrimaryKey("username")
+    private String userName;
 
     @Column("password")
     private String password;

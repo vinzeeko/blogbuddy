@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
-import java.util.UUID;
 
 @Service
 public class UserService {
@@ -33,9 +32,9 @@ public class UserService {
 
     }
 
-    public UserDto updateUserTheme(UUID userId, UserRequest userRequest) {
+    public UserDto updateUserTheme(String userName, UserRequest userRequest) {
 
-        UserEntity userEntity = userRepository.findById(userId).orElse(null);
+        UserEntity userEntity = userRepository.findById(userName).orElse(null);
         // User not found
         if(userEntity == null) return null;
 
@@ -43,6 +42,17 @@ public class UserService {
 
         return UserObjectMapper
                 .mapToUserDto(userRepository.save(userEntity));
+
+    }
+
+    public UserDto authUser(UserRequest userRequest) {
+
+        UserEntity userEntity = userRepository.authUser(userRequest.getUserName(), userRequest.getPassword());
+        // User not found
+        if(userEntity == null) return null;
+
+        return UserObjectMapper
+                .mapToUserDto(userEntity);
 
     }
 

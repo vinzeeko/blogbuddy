@@ -12,7 +12,7 @@ import java.util.UUID;
 @NoArgsConstructor()
 public class BlogDto {
     UUID blogId;
-    UUID userId;
+    String userName;
     String title;
     String content;
     Date createOn;

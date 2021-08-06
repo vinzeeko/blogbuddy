@@ -14,7 +14,7 @@ import java.util.UUID;
 public class BlogResponse {
 
     UUID blogId;
-    UUID userId;
+    String userName;
     String title;
     String content;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "UTC")

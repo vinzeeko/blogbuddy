@@ -2,7 +2,7 @@ CREATE TABLE blog (
 
     // key
     blog_id uuid,
-    user_id uuid,
+    username text,
     title text,
     content text,
 
@@ -13,14 +13,13 @@ CREATE TABLE blog (
     primary key (blog_id)
 );
 
-CREATE INDEX ON blog (user_id);
+CREATE INDEX ON blog (username);
 
 CREATE TABLE user (
 
     // key
-    user_id uuid,
-
     username text,
+
     password text,
     selected_theme int,
 
@@ -28,17 +27,18 @@ CREATE TABLE user (
     created_on timestamp,
     updated_on timestamp,
 
-    primary key (user_id)
+    primary key (username)
 );
+
+CREATE INDEX ON user (password);
 
 
 CREATE TABLE comment (
 
     // key
     comment_id uuid,
-    user_id uuid,
-    username text,
     blog_id uuid,
+    username text,
     comment text,
 
     // audit
@@ -51,16 +51,16 @@ CREATE INDEX ON comment (blog_id);
 
 -- Creating sample data
 -- To be removed
-INSERT INTO user (user_id, username, password)
-  VALUES (6ab09bec-e68e-48d9-a5f8-97e6fb4c9b47, 'service-user','service-pwd');
+INSERT INTO user (username, password)
+  VALUES ('service-user','service-pwd');
 
-INSERT INTO user (user_id, username, password)
-VALUES (6ab09bec-e68e-48d9-a5f8-97e6fb4c9b47, 'comment-user','comment-pwd');
-
-
-INSERT INTO blog (blog_id, user_id, title, content)
-  VALUES (6ab09bec-e68e-48d9-a5f8-97e6fb4c9b57, 6ab09bec-e68e-48d9-a5f8-97e6fb4c9b47, 'My First Blog','Oh there is lot to share here');
+INSERT INTO user (username, password)
+VALUES ('comment-user','comment-pwd');
 
 
-INSERT INTO comment (comment_id, user_id, blog_id, comment)
-  VALUES (6ab09bec-e68e-48d9-a5f8-97e6fb4c9b37, 6ab09bec-e68e-48d9-a5f8-97e6fb4c9b47, 6ab09bec-e68e-48d9-a5f8-97e6fb4c9b57, 'here goes my first comment');
+INSERT INTO blog (blog_id, username, title, content)
+  VALUES (6ab09bec-e68e-48d9-a5f8-97e6fb4c9b57, 'service-user', 'My First Blog','Oh there is lot to share here');
+
+
+INSERT INTO comment (comment_id, username, blog_id, comment)
+  VALUES (6ab09bec-e68e-48d9-a5f8-97e6fb4c9b37, 'comment-user', 6ab09bec-e68e-48d9-a5f8-97e6fb4c9b57, 'here goes my first comment');

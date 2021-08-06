@@ -15,7 +15,6 @@ public class CommentResponse {
 
     UUID commentId;
     UUID blogId;
-    UUID userId;
     String userName;
     String comment;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "UTC")
