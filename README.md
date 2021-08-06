@@ -20,7 +20,7 @@ You need:
 
 ### Installing
 ```
-gradle build
+./gradle build
 ```
 
 ### Deploying Local Cassandra
